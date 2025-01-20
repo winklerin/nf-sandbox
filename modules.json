@@ -1,0 +1,51 @@
+{
+    "name": "luwinklerchen/nf-mmseqs",
+    "homePage": "https://github.com/luwinklerchen/nf-mmseqs",
+    "repos": {
+        "https://github.com/nf-core/modules.git": {
+            "modules": {
+                "nf-core": {
+                    "cat/cat": {
+                        "branch": "master",
+                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
+                        "installed_by": ["modules"]
+                    },
+                    "fq/lint": {
+                        "branch": "master",
+                        "git_sha": "911696ea0b62df80e900ef244d7867d177971f73",
+                        "installed_by": ["modules"]
+                    },
+                    "mmseqs/createdb": {
+                        "branch": "master",
+                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
+                        "installed_by": ["mmseqs_contig_taxonomy"]
+                    },
+                    "mmseqs/createtsv": {
+                        "branch": "master",
+                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
+                        "installed_by": ["mmseqs_contig_taxonomy"]
+                    },
+                    "mmseqs/databases": {
+                        "branch": "master",
+                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
+                        "installed_by": ["mmseqs_contig_taxonomy"]
+                    },
+                    "mmseqs/taxonomy": {
+                        "branch": "master",
+                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
+                        "installed_by": ["mmseqs_contig_taxonomy", "modules"]
+                    }
+                }
+            },
+            "subworkflows": {
+                "nf-core": {
+                    "mmseqs_contig_taxonomy": {
+                        "branch": "master",
+                        "git_sha": "ab80a04707104a4baf39341581dfbced5da05479",
+                        "installed_by": ["subworkflows"]
+                    }
+                }
+            }
+        }
+    }
+}
