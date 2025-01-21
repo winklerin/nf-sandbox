@@ -15,6 +15,11 @@
                         "git_sha": "911696ea0b62df80e900ef244d7867d177971f73",
                         "installed_by": ["modules"]
                     },
+                    "gunzip": {
+                        "branch": "master",
+                        "git_sha": "ce35ce92566b3328b405253543b9b2b4d4e5f4f7",
+                        "installed_by": ["modules"]
+                    },
                     "mmseqs/createdb": {
                         "branch": "master",
                         "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
