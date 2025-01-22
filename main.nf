@@ -21,6 +21,7 @@ include { validateParameters; paramsSummaryLog; fromSamplesheet } from 'plugin/n
 include { INITIALISE } from './subworkflows/local/initialise'
 include { MMSEQS_CONTIG_TAXONOMY } from './subworkflows/nf-core/mmseqs_contig_taxonomy/main'
 include { VAMB } from './modules/local/vamb/main'
+include { TAXCONVERTER } from './modules/taxconverter/main'
 include { GUNZIP } from './modules/nf-core/gunzip/main'
 
 // Print parameter summary log to screen before running
@@ -43,7 +44,7 @@ workflow NFMMSEQS {
  Channel
     .fromPath(params.input)   // Path to your CSV file
     .splitCsv(header: true)   // Splits the CSV into columns (if it has a header)
-    .map { row -> 
+    .map { row ->
         [[id: row.sample], file(row.contig_fasta), file(row.depth)]
     }
     .set(samplesheet_channel)
@@ -64,15 +65,15 @@ samplesheet_channel.map { meta, contigs, depth -> [meta, depth] }
        []
     )
 
-    MMSEQS_TAXONOMY_REFORMAT(MMSEQS_CONTIG_TAXONOMY.out.ch_taxonomy_tsv, taxonomyDBChannel)
-  //tuple val(meta), path(contigs), path(depth), path(tax)
+    TAXCONVERTER(MMSEQS_CONTIG_TAXONOMY.out.ch_taxonomy_tsv)
 
 
+    //Expected input: tuple val(meta), path(contigs), path(depth), path(tax)
     TAXVAMB(contigChannel
             .join(
                 depthChannel
             ).join(
-                MMSEQS_TAXONOMY_REFORMAT.out.tsv
+                TAXCONVERTER.out.tsv
             )
         )
 }
