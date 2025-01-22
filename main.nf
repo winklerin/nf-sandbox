@@ -44,17 +44,17 @@ workflow NFMMSEQS {
     .fromPath(params.input)   // Path to your CSV file
     .splitCsv(header: true)   // Splits the CSV into columns (if it has a header)
     .map { row -> 
-        [[id: row.sample], contigs: file(row.contig_fasta), depth: file(row.depth)]
+        [[id: row.sample], file(row.contig_fasta), file(row.depth)]
     }
     .set(samplesheet_channel)
 
 
 // Channel for process requiring sample and contig_fasta
-samplesheet_channel.map { id, contigs, depth -> [id, contigs] }
+samplesheet_channel.map { meta, contigs, depth -> [meta, contigs] }
     .set { contigChannel }
 
 // Channel for process requiring sample and depth
-samplesheet_channel.map { id, contigs, depth -> [id, depth] }
+samplesheet_channel.map { meta, contigs, depth -> [meta, depth] }
     .set { depthChannel }
 
     // Run MMseqs Taxonomy on contigs
@@ -63,19 +63,16 @@ samplesheet_channel.map { id, contigs, depth -> [id, depth] }
        params.db,
        []
     )
-    //Prepare depth tables for TaxVAMB
-    //I made changes in the nf-core module!!
-    GUNZIP(
-        depthChannel
-    )
-    depthChannel_unzipped=GUNZIP.out
 
-    TAXVAMB(
-            contigChannel
+    MMSEQS_TAXONOMY_REFORMAT(MMSEQS_CONTIG_TAXONOMY.out.ch_taxonomy_tsv, taxonomyDBChannel)
+  //tuple val(meta), path(contigs), path(depth), path(tax)
+
+
+    TAXVAMB(contigChannel
             .join(
-                GUNZIP.out.depth
+                depthChannel
             ).join(
-                MMSEQS_CONTIG_TAXONOMY.out.ch_taxonomy_tsv
+                MMSEQS_TAXONOMY_REFORMAT.out.tsv
             )
         )
 }

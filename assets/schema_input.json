@@ -20,8 +20,15 @@
                 "format": "file-path",
                 "errorMessage": "Fasta file for contigs must be provided, cannot contain spaces and must have extension '.fa.gz' or '.fasta.gz'",
                 "unique": true
+            },
+            "depth": {
+              "type": "string",
+                "pattern": ".txt$",
+                "format": "file-path",
+                "errorMessage": "depth file has to be provided",
+                "unique": true  
             }
         },
-        "required": ["sample", "contig_fasta"]
+        "required": ["sample", "contig_fasta", "depth"]
     }
 }

@@ -60,12 +60,13 @@ process VAMB {
     // TODO nf-core: Please replace the example samtools command below with your module's command
     // TODO nf-core: Please indent the command appropriately (4 spaces!!) to help with readability ;)
     """
+    zcat $depth | tail -n+2 | cut -f1,3 > ${prefix}_depth.tsv
     vamb bin taxvamb \\
         -p $task.cpus \\
         $args \\
         --outdir $prefix \\
         --fasta $contigs \\
-        --abundance_tsv $depth \\
+        --abundance_tsv ${prefix}_depth.tsv \\
         --taxonomy $tax 
 
     create_fasta.py \\
