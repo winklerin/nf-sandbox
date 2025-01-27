@@ -21,7 +21,7 @@ include { validateParameters; paramsSummaryLog; fromSamplesheet } from 'plugin/n
 include { INITIALISE } from './subworkflows/local/initialise'
 include { MMSEQS_CONTIG_TAXONOMY } from './subworkflows/nf-core/mmseqs_contig_taxonomy/main'
 include { VAMB } from './modules/local/vamb/main'
-include { TAXCONVERTER } from './modules/taxconverter/main'
+include { TAXCONVERTER } from './modules/local/taxconverter/main'
 include { GUNZIP } from './modules/nf-core/gunzip/main'
 
 // Print parameter summary log to screen before running
