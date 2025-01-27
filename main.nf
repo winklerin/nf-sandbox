@@ -47,7 +47,8 @@ workflow NFMMSEQS {
     .map { row ->
         [[id: row.sample], file(row.contig_fasta), file(row.depth)]
     }
-    .set(samplesheet_channel)
+    .view()
+    .set{samplesheet_channel}
 
 
 // Channel for process requiring sample and contig_fasta
@@ -65,11 +66,11 @@ samplesheet_channel.map { meta, contigs, depth -> [meta, depth] }
        []
     )
 
-    TAXCONVERTER(MMSEQS_CONTIG_TAXONOMY.out.ch_taxonomy_tsv)
+    TAXCONVERTER(MMSEQS_CONTIG_TAXONOMY.out.taxonomy)
 
 
     //Expected input: tuple val(meta), path(contigs), path(depth), path(tax)
-    TAXVAMB(contigChannel
+    VAMB(contigChannel
             .join(
                 depthChannel
             ).join(
