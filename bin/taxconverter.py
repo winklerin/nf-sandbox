@@ -14,11 +14,6 @@ def all_to_taxvamb(df: pd.DataFrame):
     df.columns = ['contigs', 'predictions']
     return df
 
-def add_one_filepath_arguments(subparser):
-    subparser.add_argument('-i', '--input', dest="input", metavar="", type=str, help="path to the taxonomy annotations")
-    subparser.add_argument('-o', '--output', dest="output", metavar="", type=str, help="path to save the converted annotations")
-    add_format_arguments(subparser)
-
 def mmseqs_data(filepath: str):
     begintime = time.time()
     df_mmseqs = pd.read_csv(filepath, header=None, delimiter='\t')

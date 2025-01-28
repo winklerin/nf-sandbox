@@ -22,7 +22,7 @@ process TAXCONVERTER {
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
     taxconverter.py
-        -i $mmseqs_tsv \\
+        -i ${mmseqs_tsv} \\
         -o ${prefix}_unified.tsv
     """
 }
