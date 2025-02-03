@@ -7,9 +7,27 @@ import pandas as pd
 
 LINEAGE_COL = 'lineage'
 SEQ_COL = 'sequences'
+# valid ranks: domain, phylum, class, order, family, genus, species
+
+valid_ranks = ['d_', 'p_', 'c_', 'o_', 'f_', 'g_', 's_']
+
+def only_valid_ranks(lineage):
+    lineage = lineage.split(";")
+    lineage_clean = []
+    for r in valid_ranks:
+        stop_rank = True
+        for t in lineage:
+            if t[:2] == r:
+                lineage_clean.append(t)
+                stop_rank=False
+                break
+        if stop_rank:
+            break
+    return ";".join(lineage_clean)
 
 def all_to_taxvamb(df: pd.DataFrame):
     df[LINEAGE_COL] = df[LINEAGE_COL].fillna('unknown')
+    df[LINEAGE_COL] = df[LINEAGE_COL].apply(lambda l: only_valid_ranks(l))
     df = df[[SEQ_COL, LINEAGE_COL]]
     df.columns = ['contigs', 'predictions']
     return df
