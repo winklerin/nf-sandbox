@@ -67,7 +67,9 @@ process VAMB {
         --outdir $prefix \\
         --fasta $contigs \\
         --abundance_tsv ${prefix}_depth.tsv \\
-        --taxonomy $tax 
+        --taxonomy $tax \\
+        -m 100
+    
 
     create_fasta.py \\
         $contigs \\
