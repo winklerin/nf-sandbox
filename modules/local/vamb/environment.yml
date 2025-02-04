@@ -1,5 +1,19 @@
 channels:
-  - conda-forge
-  - bioconda
+- conda-forge
+- bioconda
 dependencies:
-  - bioconda::vamb=4.1.3
+- pip
+- git
+- gcc
+- numpy=2.2.1
+- pytorch=2.5.1
+- pycoverm=0.6.2
+- networkx=3.4.2
+- scikit-learn=1.6.0
+- loguru=0.7.2
+- pyhmmer=0.10.15
+- pyrodigal=3.6.3
+- cython=3.0.1
+- pip:
+  - dadaptation==3.2
+  - git+https://github.com/RasmussenLab/vamb.git@master

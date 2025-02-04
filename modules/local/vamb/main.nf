@@ -25,7 +25,7 @@ process VAMB {
     // TODO nf-core: See section in main README for further information regarding finding and adding container addresses to the section below.
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/vamb:4.1.3--py311h7b50bb2_0':
+        'vamb_02a9a6e':
         'biocontainers/vamb:4.1.3--py311h7b50bb2_0' }"
 
     input:
@@ -67,9 +67,13 @@ process VAMB {
         --outdir $prefix \\
         --fasta $contigs \\
         --abundance_tsv ${prefix}_depth.tsv \\
+<<<<<<< HEAD
         --taxonomy $tax \\
         -m 100
     
+=======
+        --taxonomy $tax
+>>>>>>> 7a3b7a91c6cbecbdc0305f5957b7fe9047c1f4ce
 
     create_fasta.py \\
         $contigs \\
