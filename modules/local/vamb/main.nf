@@ -49,7 +49,7 @@ process VAMB {
 
     stub:
     def args = task.ext.args ?: ''
-    def prefix = task.ext.prefix ?: "${meta.id}"
+    prefix = task.ext.prefix ?: "${meta.id}"
     """
     mkdir ${prefix}
     touch ${prefix}/vae_clusters_unsplit.tsv
