@@ -20,6 +20,7 @@ process VAMB {
 
     script:
     def args = task.ext.args ?: ''
+    def args2 = task.ext.args2 ?: ''
     prefix = task.ext.prefix ?: "${meta.id}"
 
     """
@@ -33,8 +34,8 @@ process VAMB {
 
     create_fasta.py \\
         $contigs \\
-        ${prefix}/vae_clusters_unsplit.tsv \\
-        200 \\
+        ${prefix}/vaevae_clusters_unsplit.tsv \\
+        $args2 \\
         ${prefix}_bins
 
 

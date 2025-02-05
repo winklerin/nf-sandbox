@@ -35,7 +35,7 @@ with open(args.clusterspath) as file:
 clusters = {
     cluster: contigs
     for (cluster, contigs) in clusters.items()
-    if sum(lens[c] for c in contigs) >= args.minsize
+    if sum(lens[c] for c in contigs if c!= 'contigname') >= args.minsize
 }
 
 with vamb.vambtools.Reader(args.fastapath) as file:
