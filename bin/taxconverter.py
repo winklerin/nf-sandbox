@@ -38,7 +38,7 @@ def mmseqs_data(filepath: str):
     begintime = time.time()
     df_mmseqs = pd.read_csv(filepath, header=None, delimiter='\t')
     df_mmseqs[SEQ_COL] = df_mmseqs[0]
-    df_mmseqs[LINEAGE_COL] = df_mmseqs[4]
+    df_mmseqs[LINEAGE_COL] = df_mmseqs[8]
     elapsed = round(time.time() - begintime, 2)
     print(f"Converted MMseqs2 format in {elapsed} seconds")
     return df_mmseqs
