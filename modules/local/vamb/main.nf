@@ -23,16 +23,13 @@ process VAMB {
     prefix = task.ext.prefix ?: "${meta.id}"
 
     """
-    zcat $depth | tail -n+2 | cut -f1,3 > ${prefix}_depth.tsv
     vamb bin taxvamb \\
         -p $task.cpus \\
         $args \\
         --outdir $prefix \\
         --fasta $contigs \\
-        --abundance_tsv ${prefix}_depth.tsv \\
-        --taxonomy $tax \\
-        -m 100
-
+        --abundance_tsv $depth \\
+        --taxonomy $tax
 
     create_fasta.py \\
         $contigs \\

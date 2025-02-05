@@ -22,6 +22,7 @@ include { INITIALISE } from './subworkflows/local/initialise'
 include { MMSEQS_CONTIG_TAXONOMY } from './subworkflows/nf-core/mmseqs_contig_taxonomy/main'
 include { VAMB } from './modules/local/vamb/main'
 include { TAXCONVERTER } from './modules/local/taxconverter/main'
+include { FILTER_CONTIGS } from './modules/local/filter_contigs/main'
 include { GUNZIP } from './modules/nf-core/gunzip/main'
 
 // Print parameter summary log to screen before running
@@ -68,15 +69,18 @@ samplesheet_channel.map { meta, contigs, depth -> [meta, depth] }
 
     TAXCONVERTER(MMSEQS_CONTIG_TAXONOMY.out.taxonomy)
 
-
-    //Expected input: tuple val(meta), path(contigs), path(depth), path(tax)
-    VAMB(contigChannel
+    FILTER_CONTIGS(
+        contigChannel
             .join(
                 depthChannel
             ).join(
                 TAXCONVERTER.out.tsv
             )
-        )
+    )
+
+
+    //Expected input: tuple val(meta), path(contigs), path(depth), path(tax)
+    VAMB(FILTER_CONTIGS.out.filtered)
 }
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
