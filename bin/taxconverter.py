@@ -13,6 +13,8 @@ valid_ranks = ['d_', 'p_', 'c_', 'o_', 'f_', 'g_', 's_']
 
 def only_valid_ranks(lineage):
     lineage = lineage.split(";")
+    if lineage[0] == 'unknown':
+        return 'unclassified'
     lineage_clean = []
     for r in valid_ranks:
         stop_rank = True
@@ -36,7 +38,7 @@ def mmseqs_data(filepath: str):
     begintime = time.time()
     df_mmseqs = pd.read_csv(filepath, header=None, delimiter='\t')
     df_mmseqs[SEQ_COL] = df_mmseqs[0]
-    df_mmseqs[LINEAGE_COL] = df_mmseqs[8]
+    df_mmseqs[LINEAGE_COL] = df_mmseqs[4]
     elapsed = round(time.time() - begintime, 2)
     print(f"Converted MMseqs2 format in {elapsed} seconds")
     return df_mmseqs
