@@ -11,7 +11,7 @@ process VAMB {
     tuple val(meta), path(contigs), path(depth), path(tax)
 
     output:
-    tuple val(meta), path("vae_clusters_unsplit.tsv"), emit: clusters_unsplit_tsv
+    tuple val(meta), path({"${prefix}/vaevae_clusters_unsplit.tsv"}), emit: clusters_unsplit_tsv
     tuple val(meta), path({"${prefix}_bins"}), emit: bin_fasta
     path "versions.yml"           , emit: versions
 
@@ -50,7 +50,7 @@ process VAMB {
     prefix = task.ext.prefix ?: "${meta.id}"
     """
     mkdir ${prefix}
-    touch ${prefix}/vae_clusters_unsplit.tsv
+    touch ${prefix}/vaevae_clusters_unsplit.tsv
     mkdir ${prefix}_bins
 
     cat <<-END_VERSIONS > versions.yml
